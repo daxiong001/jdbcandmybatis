@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 1.properties属性引入外部配置文件 -->
+    <properties resource="db">
+        <!-- property里面的属性全局均可使用 -->
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+
+        <!-- 启用默认值特性，这样${}拼接符才可以设置默认值 -->
+        <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
+    </properties>
+    <typeAliases>
+        <package name="com.dai.pojo"/>
+    </typeAliases>
+    <!-- 7.environments数据库环境配置 -->
+    <!-- 和Spring整合后environments配置将被废除 -->
+    <environments default="development">
+        <environment id="development">
+            <!-- 使用JDBC事务管理 -->
+            <transactionManager type="JDBC"/>
+            <!-- 数据库连接池 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/test?characterEncoding=utf-8&amp;useSSL=false&amp;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 8.加载映射文件 -->
+    <mappers>
+<!--        <mapper resource="com/dai/mapper/UserMapper"/>-->
+        <package name="com.dai.mapper"/>
+    </mappers>
+</configuration>
